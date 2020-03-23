@@ -20,6 +20,7 @@ GEM
       minitest (~> 5.1)
       tzinfo (~> 1.1)
       zeitwerk (~> 2.2)
+    backports (3.17.0)
     builder (3.2.4)
     concurrent-ruby (1.1.6)
     crass (1.0.6)
@@ -76,6 +77,7 @@ GEM
     method_source (1.0.0)
     mini_portile2 (2.4.0)
     minitest (5.14.0)
+    multi_json (1.14.1)
     mustermann (1.1.1)
       ruby2_keywords (~> 0.0.1)
     nokogiri (1.10.9)
@@ -120,6 +122,13 @@ GEM
       rack (~> 2.0)
       rack-protection (= 2.0.8.1)
       tilt (~> 2.0)
+    sinatra-contrib (2.0.8.1)
+      backports (>= 2.8.2)
+      multi_json
+      mustermann (~> 1.0)
+      rack-protection (= 2.0.8.1)
+      sinatra (= 2.0.8.1)
+      tilt (~> 2.0)
     thor (1.0.1)
     thread_safe (0.3.6)
     tilt (2.0.10)
@@ -141,6 +150,7 @@ DEPENDENCIES
   sequel
   sequel-seed
   sinatra
+  sinatra-contrib
 
 RUBY VERSION
    ruby 2.5.7p206

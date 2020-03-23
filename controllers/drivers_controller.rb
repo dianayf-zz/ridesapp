@@ -1,4 +1,7 @@
+require 'sinatra/base'
+require 'sinatra'
 require 'sequel'
+
 class DriversController < ApplicationController
 
   post '/' do
@@ -10,8 +13,7 @@ class DriversController < ApplicationController
   end
 
   get '/:id' do
-    t = Driver.where(id: params[:id]).first.to_json
-    puts "#{t}lalalalalalal * 20"
-    t
+    t = Driver.where(id: params[:id])
+    {message: "driver detail shown sucessfully", code: 0, data: t}.to_json
   end
 end

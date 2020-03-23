@@ -7,6 +7,6 @@ plugin :validation_helpers
   def validate
     super
     validates_presence [:driver_id, :rider_id]
-    validates_includes [:available, :in_progress, :finished], :status
+    validates_includes [:assigned, :in_progress, :finished], :status
   end
 end

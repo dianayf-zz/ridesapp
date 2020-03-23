@@ -1,5 +1,5 @@
 class HomeController < ApplicationController
   get '/' do
-    "HELLO WORLD"
+    "Hello World!"
   end
 end

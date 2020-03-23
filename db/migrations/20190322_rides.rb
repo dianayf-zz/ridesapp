@@ -7,10 +7,10 @@ Sequel.migration do
       String :status
       DateTime :start_time
       DateTime :ends_time
-      String :initial_latitude
-      String :initial_longitude
-      String :final_latitude
-      String :final_longitude
+      String :current_latitude
+      String :current_longitude
+      String :target_latitude
+      String :target_longitude
       foreign_key :driver_id, :drivers
       foreign_key :rider_id, :riders
      end

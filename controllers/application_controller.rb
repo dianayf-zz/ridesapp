@@ -1,10 +1,9 @@
-require 'dotenv'
-require 'sinatra'
+require 'sinatra/base'
 
 class ApplicationController < Sinatra::Base
-  configure do
-    set :views, "./views"
-    set :public_dir, "public"
+
+  before do
+    content_type :json
   end
 
   not_found do
