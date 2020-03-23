@@ -7,6 +7,7 @@ gem 'sequel'
 gem "sequel-seed"
 gem "pg"
 gem 'rack'
+gem "dry-validation"
 gem 'dotenv-rails', groups: [:development, :test]
 
 group :test do
