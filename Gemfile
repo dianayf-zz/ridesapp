@@ -1,11 +1,11 @@
 source 'https://rubygems.org'
 
-ruby '2.5.7'
+ruby '2.7'
 
 gem 'sinatra'
-gem 'sinatra-contrib'
 gem 'sequel'
 gem "sequel-seed"
+gem "httparty"
 gem "pg"
 gem 'rack'
 gem "dry-validation"

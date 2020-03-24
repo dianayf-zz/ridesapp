@@ -2,6 +2,7 @@ class Rider < Sequel::Model
 plugin :validation_helpers
 
   one_to_many :rides
+  one_to_many :payment_sources
 
   def validate
     super

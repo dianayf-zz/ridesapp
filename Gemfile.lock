@@ -20,7 +20,6 @@ GEM
       minitest (~> 5.1)
       tzinfo (~> 1.1)
       zeitwerk (~> 2.2)
-    backports (3.17.0)
     builder (3.2.4)
     concurrent-ruby (1.1.6)
     crass (1.0.6)
@@ -69,15 +68,21 @@ GEM
       dry-initializer (~> 3.0)
       dry-schema (~> 1.5)
     erubi (1.9.0)
+    httparty (0.18.0)
+      mime-types (~> 3.0)
+      multi_xml (>= 0.5.2)
     i18n (1.8.2)
       concurrent-ruby (~> 1.0)
     loofah (2.4.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
     method_source (1.0.0)
+    mime-types (3.3.1)
+      mime-types-data (~> 3.2015)
+    mime-types-data (3.2019.1009)
     mini_portile2 (2.4.0)
     minitest (5.14.0)
-    multi_json (1.14.1)
+    multi_xml (0.6.0)
     mustermann (1.1.1)
       ruby2_keywords (~> 0.0.1)
     nokogiri (1.10.9)
@@ -122,13 +127,6 @@ GEM
       rack (~> 2.0)
       rack-protection (= 2.0.8.1)
       tilt (~> 2.0)
-    sinatra-contrib (2.0.8.1)
-      backports (>= 2.8.2)
-      multi_json
-      mustermann (~> 1.0)
-      rack-protection (= 2.0.8.1)
-      sinatra (= 2.0.8.1)
-      tilt (~> 2.0)
     thor (1.0.1)
     thread_safe (0.3.6)
     tilt (2.0.10)
@@ -143,6 +141,7 @@ DEPENDENCIES
   database_cleaner
   dotenv-rails
   dry-validation
+  httparty
   pg
   rack
   rack-test
@@ -150,10 +149,9 @@ DEPENDENCIES
   sequel
   sequel-seed
   sinatra
-  sinatra-contrib
 
 RUBY VERSION
-   ruby 2.5.7p206
+   ruby 2.7.0p-1
 
 BUNDLED WITH
-   2.1.4
+   2.1.0.pre.1

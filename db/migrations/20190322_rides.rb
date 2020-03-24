@@ -1,5 +1,3 @@
-require 'sequel'
-
 Sequel.migration do
   change do
     create_table(:rides) do
@@ -11,6 +9,7 @@ Sequel.migration do
       String :current_longitude
       String :target_latitude
       String :target_longitude
+      Integer :amount
       foreign_key :driver_id, :drivers
       foreign_key :rider_id, :riders
      end
