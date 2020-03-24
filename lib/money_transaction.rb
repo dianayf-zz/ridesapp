@@ -43,7 +43,7 @@ class MoneyTransaction
   end
 
 
-private
+  private
 
   def transaction_payload(source_id, amount, customer_email, token)
     {

@@ -32,4 +32,8 @@ class RidersController < Sinatra::Base
       {message: error, data: {}}.to_json
     end
   end
+
+  not_found do
+    {message: 'Not Found!'}.to_json
+  end
 end

@@ -25,4 +25,38 @@ class RideManager
       [:error, {:error => "There isn't any available drivers, please try again in a few minutes"}]
     end
   end
+
+  def finish_ride(ride)
+    ride.update_fields({status: "finished", "ends_at": Time.now}, [:status, :ends_at])
+
+    driver = ride.driver_id
+    driver.update_fields({available: TRUE, 
+                           current_latitude: @current_location[:latitude],
+                           current_longitude: @current_location[:longitude]
+                          }, [:available, :current_latitude, :current_longitude])
+
+    rider = ride.rider
+    rider.update_fields({current_latitude: @current_location[:latitude],
+                           current_longitude: @current_location[:longitude]
+                          }, [:current_latitude, :current_longitude])
+
+    amount = calculate_amount(ride)
+    source = rider.payment_sources.last
+
+    ride.update_fields({amount: "in_progress"}, [:status])
+    MoneyTransaction.new.create_transaction(source.id, amount, rider.email, source.token)
+  end
+
+  def time_difference(ride)
+    t1 = Time.parse(ride.start_at)
+    t2 = Time.parse(ride.ends_at)
+    t2 - t1
+  end
+
+  def calculate_amount(ride)
+    base_amount = 3500
+    distance_amount = (coordinate_difference) * 1000
+    time_amount = (time_differentece(ride) / 60) * 200
+    base_amount + distance_amount + time_amount
+  end
 end
