@@ -8,6 +8,7 @@ Sequel.migration do
       String :phone, :unique => true
       String :current_latitude
       String :current_longitude
+      TrueClass :available
       index [:current_latitude, :current_longitude]
     end
   end 

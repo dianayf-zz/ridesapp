@@ -1,5 +1,6 @@
 class Transaction < Sequel::Model
 plugin :validation_helpers
+plugin :json_serializer
 
   many_to_one :payment_sources
 

@@ -1,5 +1,6 @@
 class Rider < Sequel::Model
 plugin :validation_helpers
+plugin :json_serializer
 
   one_to_many :rides
   one_to_many :payment_sources

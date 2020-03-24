@@ -1,4 +1,4 @@
-class HomeController < ApplicationController
+class HomeController < Sinatra::Base
   get '/' do
     "Hello World!"
   end
