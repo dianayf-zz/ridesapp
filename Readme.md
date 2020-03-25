@@ -27,7 +27,7 @@ According to general purpose you need to configure and follows next steps
   - Install bundler gem
   - Run bundle install
   - Run migrations bundle exec rake db:migrate
-  - Once migration task finished, seed task is perform to populate database
+  - Populate database with seed task, run bundle exec rake db:seed
  
 
   - Locally you can set enviroment with dotenv gem in that case uses next command:
