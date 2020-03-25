@@ -6,7 +6,7 @@ plugin :json_serializer
 
   def validate
     super
-    validates_presence [:payment_source_id, :rider_id, :amount]
-    validates_includes ["PENDING", "APPROVED", "DECLINED", "VOICED"], :status
+    validates_presence [:payment_source_id, :amount]
+    validates_includes ["CREATED", "PENDING", "APPROVED", "DECLINED", "VOICED"], :status
   end
 end

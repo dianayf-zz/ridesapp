@@ -9,7 +9,8 @@ gem "httparty"
 gem "pg"
 gem 'rack'
 gem "dry-validation"
-gem 'dotenv-rails', groups: [:development, :test]
+gem 'dotenv'
+gem "rake"
 
 group :test do
   gem "database_cleaner"

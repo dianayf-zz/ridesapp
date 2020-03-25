@@ -1,11 +1,5 @@
 namespace :db do
-  DB = Sequel.connect(
-        adapter: :postgres,
-        database: ENV["POSTGRES_DB"],
-        host: ENV["POSTGRES_HOST"],
-        user: ENV["POSTGRES_USER"],
-        password: ENV["POSTGRES_PASSWORD"]
-      )
+  DB = Sequel.connect(ENV["DATABASE_URL"])
 
   desc "current schema version"
   task :version do
@@ -18,13 +12,14 @@ namespace :db do
     Sequel.extension :migration
     Sequel::Migrator.run(DB,'db/migrations')
     Rake::Task['db:version'].execute
+    Dir.glob('./models/*.rb').each { |file| require file }
   end
 
   desc "populate development database"
-  Dir.glob('./models/*.rb').each { |file| require file }
   task :seed do
     Sequel.extension :seed 
     [ENV['RACK_ENV']].each do |dataset|
+      Dir.glob('./models/*.rb').each { |file| require file }
       Sequel::Seeder.apply(DB, "db/seeds/")
     end
   end

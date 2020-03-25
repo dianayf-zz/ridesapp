@@ -11,10 +11,13 @@ class DriversController < Sinatra::Base
 
   put '/rides/:id' do
     @json = JSON.parse(request.body.read)
-    ride = Ride.first(id: id)
+    target_location = {latitude: "", longitude: "" }
+    ride = Ride.where(id: params[:id]).last
 
-    case RideManager.new(current_location, target_location).finish_ride(ride)
+    case RideManager.new(@json["current_location"], target_location).finish_ride(ride)
     in [:success, {data: data}]
+      transaction = Transaction.where(internal_reference: data["reference"]).last
+      transaction.update_fields({status: data["status"], external_reference: data["id"]}, [:status, :external_reference])
     {message: "ride finished successfully", data: ride}.to_json
     in [:error, {error: error}]
       {message: error, data: {}}.to_json
@@ -26,8 +29,8 @@ class DriversController < Sinatra::Base
 
     case MoneyTransaction.new.create_transaction(source_id, amount, customer_email, token)
     in [:success, {data: data}]
-      s = PaymentSource.create(token: data.token, reference: data.id, rider_id: params[:rider_id])
-      {message: "payment source create successfully", data: s}.to_json
+      payment = PaymentSource.create(token: data.token, reference: data.id, rider_id: params[:rider_id])
+      {message: "payment source created successfully", data: payment}.to_json
     in [:error, {error: error}]
       {message: error, data: {}}.to_json
     end

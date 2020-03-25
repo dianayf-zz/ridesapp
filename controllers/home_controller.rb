@@ -1,5 +1,5 @@
 class HomeController < Sinatra::Base
   get '/' do
-    "Hello World!"
+    "Welcome to RidesApp!!"
   end
 end

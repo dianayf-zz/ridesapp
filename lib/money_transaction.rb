@@ -17,19 +17,19 @@ class MoneyTransaction
   end
 
 
-  def create_transaction(source_id, amount, customer_email, token)
-    uri = URI.parse("#{@url}/payment_sources")
-    request = HTTParty.post(uri, :haders => {'Authorization' => "Bearer #{ENV["WOMPI_PRIVATE_KEY"]}",
-                                             'Content-Type' => "application/json"
-                                            }, :body => transaction_payload(source_id, amount, customer_email, token))
+  def create_transaction(source_id, amount, customer_email, token, internal_ref)
+    uri = URI.parse("#{@url}/transactions")
+    request = HTTParty.post(uri, :headers => {"Authorization" => "Bearer #{ENV["WOMPI_PRIVATE_KEY"]}",
+                                             "Content-Type" => "application/json"
+                                            }, :body => transaction_payload(source_id, amount, customer_email, token, internal_ref))
     make_request(request)
   end
 
   def validate_error(response)
-    if response.code != 200
-      [:error, {:error => response.parsed_response["error"]["reason"]}]
-    else
+    if [200, 201].include? response.code
       [:success, {:data => response.parsed_response["data"]}]
+    else
+      [:error, {:error => response.parsed_response["error"]["reason"]}]
     end
   end
     
@@ -45,17 +45,17 @@ class MoneyTransaction
 
   private
 
-  def transaction_payload(source_id, amount, customer_email, token)
+  def transaction_payload(source_id, amount, customer_email, token, internal_ref)
     {
-      "payment_source_id": source_id,
-      "amount_in_cents": amount,
-      "currency": "COP",
-      "customer_email": customer_email,
-      "reference": Digest::SHA1.new,
-      "payment_method": {
-        "type": "CARD",
-        "token": token,  
-        "installments": 2
+      "payment_source_id" => source_id,
+      "amount_in_cents" => amount,
+      "currency" => "COP",
+      "customer_email" => customer_email,
+      "reference" => internal_ref,
+      "payment_method" => {
+        "type" => "CARD",
+        "token" => token,
+        "installments" => 2
       }
     }.to_json
   end
